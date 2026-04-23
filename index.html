@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servochron</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111821;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #2f81f7;
+      --line: #1f2a37;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #111827 0%, #0b0f14 45%, #080b10 100%);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(17, 24, 33, 0.88);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 56px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .mark {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 28px;
+      border: 2px solid var(--accent);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 38px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 52px;
+      letter-spacing: 6px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin-top: 18px;
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+
+    .status {
+      margin-top: 28px;
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(47, 129, 247, 0.08);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .email {
+      margin-top: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .email:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 34px;
+        letter-spacing: 4px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark">SC</div>
+    <h1>SERVOCHRON</h1>
+    <div class="subtitle">ROBOTICS SERVICE & DEVELOPMENT</div>
+    <div class="status">Website coming soon</div>
+
+    <div class="footer">
+      Engineering, maintenance, and development of robotic systems.
+      <br />
+      Based in Israel.
+      <br />
+      <a class="email" href="mailto:ruskur06@gmail.com">ruskur06@gmail.com</a>
+    </div>
+  </main>
+</body>
+</html>
