@@ -186,12 +186,23 @@
     }
 
     .logo {
-      width: 110px;
-      max-width: 28%;
-      display: block;
-      filter: drop-shadow(0 0 22px rgba(77,150,255,0.10));
-      animation: logoFloat 5.5s ease-in-out infinite;
-    }
+  width: 110px;
+  max-width: 28%;
+  display: block;
+  transform-origin: center;
+  will-change: transform, filter, opacity;
+
+  animation:
+    logoFloat 5.5s ease-in-out infinite,
+    premiumNeon 4.8s ease-in-out infinite,
+    microFlicker 9s linear infinite;
+}
+
+.logo:hover {
+  animation:
+    logoFloat 5.5s ease-in-out infinite,
+    premiumNeonHover 1.8s ease-in-out infinite;
+}
 
     h1 {
       margin: 24px 0 0;
@@ -381,13 +392,16 @@
     }
 
     .core-logo {
-      width: 96px;
-      max-width: 54%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 0 18px rgba(77,150,255,0.16));
-      animation: logoFloat 6s ease-in-out infinite;
-    }
+  width: 96px;
+  max-width: 54%;
+  height: auto;
+  display: block;
+  transform-origin: center;
+
+  animation:
+    logoFloat 6s ease-in-out infinite,
+    premiumNeon 4.8s ease-in-out infinite;
+}
 
     .core-title {
       margin-top: 18px;
@@ -474,6 +488,68 @@
       }
     }
 
+    @keyframes premiumNeon {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 4px rgba(77,150,255,0.35))
+      drop-shadow(0 0 10px rgba(77,150,255,0.28))
+      drop-shadow(0 0 22px rgba(77,150,255,0.18));
+    opacity: 0.92;
+  }
+
+  35% {
+    filter:
+      drop-shadow(0 0 7px rgba(120,190,255,0.65))
+      drop-shadow(0 0 18px rgba(77,150,255,0.45))
+      drop-shadow(0 0 38px rgba(77,150,255,0.28))
+      drop-shadow(0 0 70px rgba(77,150,255,0.16));
+    opacity: 1;
+  }
+
+  65% {
+    filter:
+      drop-shadow(0 0 5px rgba(180,230,255,0.55))
+      drop-shadow(0 0 16px rgba(100,180,255,0.38))
+      drop-shadow(0 0 34px rgba(77,150,255,0.22));
+    opacity: 0.96;
+  }
+}
+
+@keyframes premiumNeonHover {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px rgba(120,190,255,0.75))
+      drop-shadow(0 0 20px rgba(77,150,255,0.55))
+      drop-shadow(0 0 44px rgba(77,150,255,0.34));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 12px rgba(210,245,255,0.95))
+      drop-shadow(0 0 28px rgba(120,200,255,0.72))
+      drop-shadow(0 0 60px rgba(77,150,255,0.48))
+      drop-shadow(0 0 110px rgba(77,150,255,0.25));
+  }
+}
+
+@keyframes microFlicker {
+  0%, 96%, 100% {
+    opacity: 1;
+  }
+
+  97% {
+    opacity: 0.82;
+  }
+
+  98% {
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 0.9;
+  }
+}
+    
     @keyframes pulseGlow {
       0%, 100% {
         opacity: 0.45;
