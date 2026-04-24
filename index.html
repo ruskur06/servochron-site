@@ -3,28 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Servochron — Robotics Service & Maintenance</title>
-  <meta
-    name="description"
-    content="Servochron — robotics service, diagnostics, maintenance, and development."
-  />
+  <meta name="description" content="Servochron — robotics service, diagnostics, maintenance, repair and custom development." />
+
   <style>
     :root {
-      --bg-0: #04070c;
-      --bg-1: #08101a;
-      --bg-2: #0c1624;
-      --panel: rgba(8, 14, 24, 0.76);
-      --border: rgba(94, 137, 201, 0.16);
-      --border-strong: rgba(94, 137, 201, 0.28);
-      --text: #eef4fb;
-      --muted: #97a7bb;
-      --accent: #4d96ff;
-      --accent-2: #7ab8ff;
-      --accent-soft: rgba(77, 150, 255, 0.14);
-      --line: rgba(255, 255, 255, 0.06);
-      --shadow: 0 30px 90px rgba(0, 0, 0, 0.48);
-      --radius: 30px;
+      --white: #ffffff;
+      --black: #050505;
+      --text: #111111;
+      --muted: #606875;
+      --line: #e7e9ee;
+      --red: #e31b23;
+      --blue: #2f81f7;
+      --soft: #f5f6f8;
       --max-width: 1320px;
+      --radius: 28px;
     }
 
     * {
@@ -37,706 +31,493 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at 50% 0%, rgba(52, 118, 255, 0.16), transparent 24%),
-        radial-gradient(circle at 10% 20%, rgba(40, 85, 180, 0.10), transparent 28%),
-        radial-gradient(circle at 90% 12%, rgba(40, 85, 180, 0.10), transparent 24%),
-        linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 38%, var(--bg-0) 100%);
+      background: var(--white);
       overflow-x: hidden;
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      width: 42vw;
-      height: 42vw;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 72px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .topbar-inner {
+      width: 100%;
+      max-width: var(--max-width);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: #1a1a1a;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav a {
+      opacity: 0.86;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+      color: var(--red);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .menu-dot {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.22;
-      animation: floatGlow 14s ease-in-out infinite;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
     }
 
-    body::before {
-      top: -10vw;
-      left: -8vw;
-      background: rgba(61, 126, 255, 0.18);
-    }
-
-    body::after {
-      right: -10vw;
-      bottom: -12vw;
-      background: rgba(0, 96, 255, 0.14);
-      animation-delay: -6s;
-    }
-
-    .grid-overlay {
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: radial-gradient(circle at center, black 35%, transparent 88%);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.25;
-    }
-
-    .wrap {
+    .hero-video {
       position: relative;
+      min-height: calc(100vh - 72px);
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #ffffff;
+      z-index: 0;
+    }
+
+    .hero-video::after {
+      content: "";
+      position: absolute;
+      inset: 0;
       z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.78) 32%, rgba(255,255,255,0.14) 70%, rgba(255,255,255,0.04) 100%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.92));
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
       width: 100%;
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 36px 20px 48px;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero {
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .panel {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: linear-gradient(
-        180deg,
-        rgba(12, 19, 31, 0.84) 0%,
-        rgba(8, 14, 24, 0.88) 100%
-      );
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.04), transparent 18%),
-        radial-gradient(circle at top center, rgba(77,150,255,0.10), transparent 36%);
-      pointer-events: none;
-    }
-
-    .left {
-      padding: 56px 52px 40px;
+      padding: 86px 28px 70px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-width: 0;
-    }
-
-    .right {
-      padding: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 700px;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(77,150,255,0.13), transparent 28%),
-        linear-gradient(180deg, rgba(11, 18, 29, 0.78), rgba(7, 12, 20, 0.95));
+      min-height: calc(100vh - 72px);
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      width: fit-content;
-      max-width: 100%;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      background: var(--accent-soft);
-      color: #d8e8ff;
-      font-size: 12px;
-      letter-spacing: 1.4px;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
       text-transform: uppercase;
-      animation: fadeUp 0.8s ease both;
+      margin-bottom: 22px;
     }
-
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 14px rgba(77,150,255,0.8);
-      flex: 0 0 auto;
-    }
-
-    .logo-block {
-      margin-top: 28px;
-      animation: fadeUp 0.95s ease both;
-      animation-delay: 0.08s;
-    }
-
-    .logo {
-  width: 110px;
-  max-width: 28%;
-  display: block;
-  transform-origin: center;
-  will-change: transform, filter, opacity;
-
-  animation:
-    logoFloat 5.5s ease-in-out infinite,
-    premiumNeon 4.8s ease-in-out infinite,
-    microFlicker 9s linear infinite;
-}
-
-.logo:hover {
-  animation:
-    logoFloat 5.5s ease-in-out infinite,
-    premiumNeonHover 1.8s ease-in-out infinite;
-}
 
     h1 {
-      margin: 24px 0 0;
-      font-size: clamp(34px, 4.2vw, 64px);
-      line-height: 0.95;
-      letter-spacing: clamp(1px, 0.22vw, 4px);
-      font-weight: 700;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: clip;
-      animation: fadeUp 1.05s ease both;
-      animation-delay: 0.14s;
+      margin: 0;
+      font-size: clamp(54px, 9vw, 132px);
+      line-height: 0.86;
+      letter-spacing: -4px;
+      font-weight: 900;
+      max-width: 920px;
     }
 
     .subtitle {
-      margin-top: 22px;
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.75;
-      animation: fadeUp 1.1s ease both;
-      animation-delay: 0.2s;
+      margin-top: 28px;
+      max-width: 620px;
+      color: #252b33;
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.45;
+      font-weight: 600;
     }
 
-    .cta-row {
-      margin-top: 32px;
+    .hero-buttons {
+      margin-top: 34px;
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      animation: fadeUp 1.18s ease both;
-      animation-delay: 0.28s;
     }
 
-    .pill {
+    .btn {
+      min-height: 54px;
+      padding: 0 26px;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      will-change: transform;
+      font-weight: 800;
+      transition: 0.22s ease;
+      border: 1px solid transparent;
     }
 
-    .pill.primary {
-      background: linear-gradient(180deg, #4c97ff 0%, #2f81f7 100%);
-      color: white;
-      box-shadow: 0 12px 28px rgba(47, 129, 247, 0.24);
+    .btn.red {
+      background: var(--red);
+      color: #fff;
     }
 
-    .pill.primary:hover {
+    .btn.red:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(47, 129, 247, 0.32);
+      box-shadow: 0 18px 36px rgba(227, 27, 35, 0.24);
     }
 
-    .stats {
-      margin-top: 34px;
+    .btn.light {
+      background: rgba(255,255,255,0.78);
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .btn.light:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .section {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 92px 28px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: 0.95;
+      letter-spacing: -2px;
+      font-weight: 900;
+    }
+
+    .section-lead {
+      margin: 22px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+
+    .cards {
+      margin-top: 44px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      animation: fadeUp 1.24s ease both;
-      animation-delay: 0.34s;
+      gap: 18px;
     }
 
-    .stat {
-      padding: 18px 16px;
-      border-radius: 18px;
+    .card {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: var(--soft);
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.025);
-      min-width: 0;
+      min-height: 230px;
     }
 
-    .stat strong {
+    .card strong {
       display: block;
-      font-size: 15px;
-      color: #f7fbff;
-      margin-bottom: 7px;
+      font-size: 22px;
+      margin-bottom: 14px;
     }
 
-    .stat span {
+    .card p {
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .footer {
-      margin-top: 30px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.75;
-      animation: fadeUp 1.3s ease both;
-      animation-delay: 0.42s;
-    }
-
-    .footer a {
-      color: var(--accent-2);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    .badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(77,150,255,0.26);
-      background: rgba(77,150,255,0.08);
-      color: #dbe9ff;
-      font-size: 13px;
-      letter-spacing: 0.7px;
-    }
-
-    .showcase {
-      position: relative;
-      width: min(100%, 430px);
-      aspect-ratio: 1 / 1;
-      display: grid;
-      place-items: center;
-    }
-
-    .ring,
-    .ring-2,
-    .ring-3 {
-      position: absolute;
-      inset: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 999px;
-      border: 1px solid rgba(77,150,255,0.12);
-    }
-
-    .ring {
-      width: 92%;
-      height: 92%;
-      animation: spinSlow 26s linear infinite;
-    }
-
-    .ring-2 {
-      width: 72%;
-      height: 72%;
-      border-style: dashed;
-      animation: spinReverse 20s linear infinite;
-    }
-
-    .ring-3 {
-      width: 52%;
-      height: 52%;
-      opacity: 0.6;
-      animation: pulseRing 4.4s ease-in-out infinite;
-    }
-
-    .core {
-      position: relative;
-      width: 68%;
-      aspect-ratio: 1 / 1;
-      border-radius: 32px;
-      border: 1px solid rgba(77,150,255,0.18);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
-        linear-gradient(180deg, rgba(11, 18, 29, 0.98), rgba(7, 12, 20, 0.98));
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.02),
-        0 20px 60px rgba(0, 0, 0, 0.42),
-        0 0 40px rgba(77,150,255,0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
-      text-align: center;
-    }
-
-    .core::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.04);
-      pointer-events: none;
-    }
-
-    .core-logo {
-  width: 96px;
-  max-width: 54%;
-  height: auto;
-  display: block;
-  transform-origin: center;
-
-  animation:
-    logoFloat 6s ease-in-out infinite,
-    premiumNeon 4.8s ease-in-out infinite;
-}
-
-    .core-title {
-      margin-top: 18px;
-      font-size: 18px;
-      letter-spacing: 1px;
-      color: #f0f6fd;
-    }
-
-    .core-subtitle {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.65;
     }
 
-    .core-glow {
-      position: absolute;
-      width: 28%;
-      aspect-ratio: 1 / 1;
-      border-radius: 999px;
-      background: rgba(77,150,255,0.12);
-      filter: blur(36px);
-      bottom: 14%;
-      right: 12%;
-      pointer-events: none;
-      animation: pulseGlow 4s ease-in-out infinite;
+    .dark-band {
+      background: #050505;
+      color: #fff;
     }
-    
+
+    .dark-band .section-lead,
+    .dark-band .card p {
+      color: #b8bec8;
+    }
+
+    .dark-band .card {
+      background: #111;
+      border-color: #222;
+    }
+
     .contact-form {
-  margin-top: 32px;
-  display: grid;
-  gap: 14px;
-  max-width: 520px;
-  animation: fadeUp 1.18s ease both;
-  animation-delay: 0.28s;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  border: 1px solid rgba(94, 137, 201, 0.22);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.035);
-  color: var(--text);
-  padding: 15px 16px;
-  font: inherit;
-  outline: none;
-}
-
-.contact-form textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: rgba(77,150,255,0.65);
-  box-shadow: 0 0 0 4px rgba(77,150,255,0.12);
-}
-
-.contact-form button {
-  border: 0;
-  cursor: pointer;
-  width: fit-content;
-}
-    
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      margin-top: 40px;
+      display: grid;
+      gap: 14px;
+      max-width: 620px;
     }
 
-    @keyframes logoFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-6px);
-      }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      color: var(--text);
+      padding: 16px 18px;
+      font: inherit;
+      outline: none;
     }
 
-    @keyframes floatGlow {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(18px) scale(1.05);
-      }
+    .contact-form textarea {
+      min-height: 130px;
+      resize: vertical;
     }
 
-    @keyframes spinSlow {
-      from {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-      to {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(47,129,247,0.12);
     }
 
-    @keyframes spinReverse {
-      from {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-      to {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
+    .contact-form button {
+      border: 0;
+      cursor: pointer;
+      width: fit-content;
     }
 
-    @keyframes pulseRing {
-      0%, 100% {
-        opacity: 0.35;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      50% {
-        opacity: 0.7;
-        transform: translate(-50%, -50%) scale(1.04);
-      }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 34px 28px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    @keyframes premiumNeon {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 4px rgba(77,150,255,0.35))
-      drop-shadow(0 0 10px rgba(77,150,255,0.28))
-      drop-shadow(0 0 22px rgba(77,150,255,0.18));
-    opacity: 0.92;
-  }
-
-  35% {
-    filter:
-      drop-shadow(0 0 7px rgba(120,190,255,0.65))
-      drop-shadow(0 0 18px rgba(77,150,255,0.45))
-      drop-shadow(0 0 38px rgba(77,150,255,0.28))
-      drop-shadow(0 0 70px rgba(77,150,255,0.16));
-    opacity: 1;
-  }
-
-  65% {
-    filter:
-      drop-shadow(0 0 5px rgba(180,230,255,0.55))
-      drop-shadow(0 0 16px rgba(100,180,255,0.38))
-      drop-shadow(0 0 34px rgba(77,150,255,0.22));
-    opacity: 0.96;
-  }
-}
-
-@keyframes premiumNeonHover {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 8px rgba(120,190,255,0.75))
-      drop-shadow(0 0 20px rgba(77,150,255,0.55))
-      drop-shadow(0 0 44px rgba(77,150,255,0.34));
-  }
-
-  50% {
-    filter:
-      drop-shadow(0 0 12px rgba(210,245,255,0.95))
-      drop-shadow(0 0 28px rgba(120,200,255,0.72))
-      drop-shadow(0 0 60px rgba(77,150,255,0.48))
-      drop-shadow(0 0 110px rgba(77,150,255,0.25));
-  }
-}
-
-@keyframes microFlicker {
-  0%, 96%, 100% {
-    opacity: 1;
-  }
-
-  97% {
-    opacity: 0.82;
-  }
-
-  98% {
-    opacity: 1;
-  }
-
-  99% {
-    opacity: 0.9;
-  }
-}
-    
-    @keyframes pulseGlow {
-      0%, 100% {
-        opacity: 0.45;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.9;
-        transform: scale(1.12);
-      }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    @media (max-width: 1180px) {
-      .hero {
-        grid-template-columns: 1fr;
+    @media (max-width: 900px) {
+      .nav {
+        display: none;
       }
 
-      .right {
-        min-height: 460px;
+      .hero-video {
+        min-height: 780px;
       }
 
-      .left {
-        padding: 46px 28px 34px;
+      .hero-video video {
+        object-position: center bottom;
+        opacity: 0.55;
+      }
+
+      .hero-video::after {
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.82) 45%, rgba(255,255,255,0.96) 100%);
+      }
+
+      .hero-content {
+        justify-content: flex-start;
+        padding-top: 72px;
       }
 
       h1 {
-        white-space: normal;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .wrap {
-        padding: 18px 12px 28px;
+        letter-spacing: -2px;
       }
 
-      .left,
-      .right {
-        padding: 28px 18px;
-      }
-
-      .subtitle {
-        font-size: 16px;
-        line-height: 1.65;
-      }
-
-      .stats {
+      .cards {
         grid-template-columns: 1fr;
       }
-
-      .logo {
-        width: 90px;
-        max-width: 40%;
-      }
-
-      .showcase {
-        width: min(100%, 320px);
-      }
-
-      .core-logo {
-        width: 82px;
-      }
-
-      .core-title {
-        font-size: 16px;
-      }
-
-      .core-subtitle {
-        font-size: 13px;
-      }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
+    @media (max-width: 560px) {
+      .topbar-inner {
+        padding: 0 16px;
+      }
+
+      .brand span {
+        font-size: 14px;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .hero-content,
+      .section {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h1 {
+        font-size: 48px;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#">
+        <img src="logo.png" alt="Servochron logo" />
+        <span>SERVOCHRON</span>
+      </a>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="panel left">
+      <nav class="nav">
+        <a href="#robot">Robot</a>
+        <a href="#services">Services</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="top-actions">
+        <a href="#contact">Contact us</a>
+        <div class="menu-dot">≡</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-video" id="robot">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="robovid_1.mp4" type="video/mp4" />
+      </video>
+
+      <div class="hero-content">
         <div class="eyebrow">Independent robotics engineering</div>
-
-        <div class="logo-block">
-          <img src="logo.png" alt="Servochron logo" class="logo" />
-        </div>
-
-        <h1>SERVOCHRON</h1>
-
+        <h1>ROBOT SERVICE & MAINTENANCE</h1>
         <p class="subtitle">
-          Premium robotics service, diagnostics, maintenance, repair, and custom development
-          for advanced mechanical and electromechanical systems.
+          Servochron develops, services and maintains compact robotic platforms,
+          mechanical systems and advanced electromechanical prototypes.
         </p>
 
-        <form class="contact-form" action="mailto:ruskur06@gmail.com" method="post" enctype="text/plain">
-          <input type="text" name="name" placeholder="Your name" required />
-          <input type="email" name="email" placeholder="Your email" required />
-          <textarea name="message" placeholder="Tell us about your robot or system" required></textarea>
-          <button class="pill primary" type="submit">Send request</button>
-        </form>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>Diagnostics</strong>
-            <span>Failure analysis, inspection, and technical evaluation of robotic systems.</span>
-          </div>
-          <div class="stat">
-            <strong>Maintenance</strong>
-            <span>Preventive service, restoration, tuning, and mechanical support.</span>
-          </div>
-          <div class="stat">
-            <strong>Development</strong>
-            <span>Concept design, prototyping, and custom robotics engineering.</span>
-          </div>
-        </div>
-
-        <div class="footer">
-          Based in Israel
-          <br />
-          <a href="mailto:servochron@gmail.com">servochron@gmail.com</a>
-          <br />
-          <span class="badge">Website expanding soon</span>
+        <div class="hero-buttons">
+          <a class="btn red" href="#contact">Send request →</a>
+          <a class="btn light" href="#services">Explore services</a>
         </div>
       </div>
+    </section>
 
-      <div class="panel right">
-        <div class="showcase" aria-hidden="true">
-          <div class="ring"></div>
-          <div class="ring-2"></div>
-          <div class="ring-3"></div>
+    <section class="section" id="services">
+      <h2 class="section-title">Precision robotics support</h2>
+      <p class="section-lead">
+        Diagnostics, maintenance, repair and development for robotic systems,
+        servo mechanisms, compact platforms and custom engineering projects.
+      </p>
 
-          <div class="core">
-            <img src="logo.png" alt="" class="core-logo" />
-            <div class="core-title">Servochron</div>
-            <div class="core-subtitle">
-              Robotics service<br />
-              maintenance & development
-            </div>
-            <div class="core-glow"></div>
+      <div class="cards">
+        <div class="card">
+          <strong>Diagnostics</strong>
+          <p>Failure analysis, inspection and technical evaluation of robotic and electromechanical systems.</p>
+        </div>
+
+        <div class="card">
+          <strong>Maintenance</strong>
+          <p>Preventive service, restoration, tuning and mechanical support for robotic platforms.</p>
+        </div>
+
+        <div class="card">
+          <strong>Development</strong>
+          <p>Concept design, prototyping, CAD-based engineering and custom robotics development.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band">
+      <div class="section" id="engineering">
+        <h2 class="section-title">Built for real mechanical work</h2>
+        <p class="section-lead">
+          Our focus is practical robotics: reliable movement, serviceable construction,
+          replaceable modules, servo-based mechanisms and engineering that can evolve
+          from prototype to working product.
+        </p>
+
+        <div class="cards">
+          <div class="card">
+            <strong>Compact platforms</strong>
+            <p>Small robotic systems for inspection, research, education and development.</p>
+          </div>
+
+          <div class="card">
+            <strong>Servo mechanics</strong>
+            <p>Support for actuator systems, linkages, joints, mounts and mechanical transmission.</p>
+          </div>
+
+          <div class="card">
+            <strong>Custom builds</strong>
+            <p>Prototype improvement, redesign, part replacement and practical engineering support.</p>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="section" id="contact">
+      <h2 class="section-title">Tell us about your robot</h2>
+      <p class="section-lead">
+        Send a short description of your system, problem or prototype.
+      </p>
+
+      <form class="contact-form" action="mailto:servochron@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <textarea name="message" placeholder="Tell us about your robot or system" required></textarea>
+        <button class="btn red" type="submit">Send request</button>
+      </form>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© Servochron — Robotics Service & Maintenance</span>
+      <a href="mailto:servochron@gmail.com">servochron@gmail.com</a>
+    </div>
+  </footer>
 </body>
 </html>
