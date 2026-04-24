@@ -429,7 +429,45 @@
       pointer-events: none;
       animation: pulseGlow 4s ease-in-out infinite;
     }
+    
+    .contact-form {
+  margin-top: 32px;
+  display: grid;
+  gap: 14px;
+  max-width: 520px;
+  animation: fadeUp 1.18s ease both;
+  animation-delay: 0.28s;
+}
 
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid rgba(94, 137, 201, 0.22);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.035);
+  color: var(--text);
+  padding: 15px 16px;
+  font: inherit;
+  outline: none;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(77,150,255,0.65);
+  box-shadow: 0 0 0 4px rgba(77,150,255,0.12);
+}
+
+.contact-form button {
+  border: 0;
+  cursor: pointer;
+  width: fit-content;
+}
+    
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -650,9 +688,12 @@
           for advanced mechanical and electromechanical systems.
         </p>
 
-        <div class="cta-row">
-          <a class="pill primary" href="mailto:ruskur06@gmail.com">Contact by email</a>
-        </div>
+        <form class="contact-form" action="mailto:ruskur06@gmail.com" method="post" enctype="text/plain">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Tell us about your robot or system" required></textarea>
+          <button class="pill primary" type="submit">Send request</button>
+        </form>
 
         <div class="stats">
           <div class="stat">
