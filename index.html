@@ -133,9 +133,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
-      transform: scaleX(1.05);
-      transform-origin: center;
+      object-position: center;
+      transform: scale(1.04); /* аккуратный зум без мыла */
       z-index: 0;
     }
 
@@ -144,15 +143,18 @@
       position: absolute;
       inset: 0;
       z-index: 1;
+    
       background:
         linear-gradient(90deg,
-          rgba(0,0,0,0.78) 0%,
-          rgba(0,0,0,0.55) 28%,
-          rgba(0,0,0,0.28) 52%,
-          rgba(0,0,0,0.08) 72%,
-          rgba(0,0,0,0) 85%);
-      pointer-events: none;
-    }
+          rgba(0,0,0,0.82) 0%,
+          rgba(0,0,0,0.60) 30%,
+          rgba(0,0,0,0.30) 55%,
+          rgba(0,0,0,0.08) 75%,
+          rgba(0,0,0,0.0) 88%
+        );
+
+  pointer-events: none;
+}
 
     .hero::after {
       content: "";
@@ -185,12 +187,10 @@
 
     .eyebrow {
       margin-bottom: 26px;
-      color: var(--red);
+      color: rgba(227,27,35,0.9);
       font-size: 13px;
-      line-height: 1;
       font-weight: 900;
       letter-spacing: 3px;
-      text-transform: uppercase;
     }
 
     h1 {
@@ -199,7 +199,10 @@
       line-height: 0.9;
       letter-spacing: -4px;
       font-weight: 900;
-      color: #050505;
+    
+      color: #e7eaee; /* 🔥 светло-серый вместо черного */
+    
+      text-shadow: 0 6px 24px rgba(0,0,0,0.65);
     }
 
     .subtitle {
@@ -208,8 +211,11 @@
       font-size: clamp(19px, 1.7vw, 25px);
       line-height: 1.38;
       font-weight: 800;
-      color: #202833;
-    }
+    
+      color: rgba(230,232,235,0.72);
+    
+      text-shadow: 0 3px 14px rgba(0,0,0,0.55);
+     }
 
     .hero-buttons {
       margin-top: 44px;
@@ -379,7 +385,12 @@
       }
 
       .hero::before {
-        background: rgba(255,255,255,0.72);
+        background:
+          linear-gradient(90deg,
+            rgba(0,0,0,0.78) 0%,
+            rgba(0,0,0,0.55) 40%,
+            rgba(0,0,0,0.18) 70%,
+            rgba(0,0,0,0.0) 100%);
       }
 
       h1 {
