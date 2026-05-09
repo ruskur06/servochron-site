@@ -1,3 +1,6 @@
+Ниже полный обновлённый код на основе твоего текущего файла: добавил больше информации, блоки **What we repair / Process / Video gallery / FAQ**, оставил Formspree и оптимизировал дополнительные видео через `preload="metadata"`. 
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Servochron — Robotics Service & Maintenance</title>
+  <meta name="description" content="Servochron — robotics diagnostics, robot maintenance, servo repair, prototype engineering and compact robotic platform support." />
 
   <style>
     :root {
@@ -302,14 +306,40 @@
       line-height: 1.7;
     }
 
-    .cards {
+    .cards,
+    .repair-grid,
+    .process-grid,
+    .video-grid,
+    .faq-grid {
       margin-top: 44px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 18px;
     }
 
-    .card {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .repair-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card,
+    .repair-item,
+    .process-step,
+    .faq-item {
       padding: 30px;
       border-radius: 26px;
       background: #f5f6f8;
@@ -317,17 +347,73 @@
       min-height: 220px;
     }
 
-    .card strong {
+    .repair-item,
+    .process-step,
+    .faq-item {
+      min-height: auto;
+    }
+
+    .card strong,
+    .repair-item strong,
+    .process-step strong,
+    .faq-item strong {
       display: block;
       font-size: 22px;
       margin-bottom: 14px;
     }
 
-    .card p {
+    .card p,
+    .repair-item p,
+    .process-step p,
+    .faq-item p {
       margin: 0;
       color: var(--muted);
       font-size: 16px;
       line-height: 1.65;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border-radius: 28px;
+      background: #111;
+      border: 1px solid #222;
+    }
+
+    .video-card video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .video-card-text {
+      padding: 24px;
+      color: #fff;
+    }
+
+    .video-card-text strong {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .video-card-text p {
+      margin: 0;
+      color: #b8bec8;
+      line-height: 1.6;
     }
 
     .dark-band {
@@ -336,11 +422,17 @@
     }
 
     .dark-band .section-lead,
-    .dark-band .card p {
+    .dark-band .card p,
+    .dark-band .repair-item p,
+    .dark-band .process-step p,
+    .dark-band .faq-item p {
       color: #b8bec8;
     }
 
-    .dark-band .card {
+    .dark-band .card,
+    .dark-band .repair-item,
+    .dark-band .process-step,
+    .dark-band .faq-item {
       background: #111;
       border-color: #222;
     }
@@ -353,7 +445,8 @@
     }
 
     .contact-form input,
-    .contact-form textarea {
+    .contact-form textarea,
+    .contact-form select {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -373,6 +466,13 @@
       border: 0;
       cursor: pointer;
       width: fit-content;
+    }
+
+    .form-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .footer {
@@ -411,14 +511,21 @@
       color: #e7eaee;
     }
 
-    body.dark .card {
+    body.dark .card,
+    body.dark .repair-item,
+    body.dark .process-step,
+    body.dark .faq-item {
       background: #111;
       border-color: #242424;
       color: #e7eaee;
     }
 
     body.dark .card p,
-    body.dark .section-lead {
+    body.dark .repair-item p,
+    body.dark .process-step p,
+    body.dark .faq-item p,
+    body.dark .section-lead,
+    body.dark .form-note {
       color: #aeb5c0;
     }
 
@@ -429,7 +536,8 @@
     }
 
     body.dark .contact-form input,
-    body.dark .contact-form textarea {
+    body.dark .contact-form textarea,
+    body.dark .contact-form select {
       background: #111;
       color: #e7eaee;
       border-color: #2b2b2b;
@@ -439,6 +547,13 @@
       background: #050505;
       border-top-color: #222;
       color: #aeb5c0;
+    }
+
+    @media (max-width: 1100px) {
+      .repair-grid,
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 900px) {
@@ -466,7 +581,11 @@
         letter-spacing: -2px;
       }
 
-      .cards {
+      .cards,
+      .repair-grid,
+      .process-grid,
+      .video-grid,
+      .faq-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -546,7 +665,7 @@
       }
 
       .hero-buttons {
-        margin-top: clamp(60px, 14vw, 110px);
+        margin-top: clamp(70px, 16vw, 120px);
         flex-direction: column;
         align-items: flex-start;
       }
@@ -556,6 +675,11 @@
         max-width: 260px;
         min-height: 52px;
         padding: 0 24px;
+      }
+
+      .section {
+        padding-top: 72px;
+        padding-bottom: 72px;
       }
     }
   </style>
@@ -572,7 +696,9 @@
       <nav class="nav">
         <a href="#robot">Robot</a>
         <a href="#services">Services</a>
-        <a href="#engineering">Engineering</a>
+        <a href="#repair">Repair</a>
+        <a href="#process">Process</a>
+        <a href="#videos">Videos</a>
         <a href="#contact">Contact</a>
       </nav>
 
@@ -603,12 +729,12 @@
           <h1>ROBOT<br />SERVICE &<br />MAINTENANCE</h1>
 
           <p class="subtitle">
-            Servochron develops, services and maintains compact robotic platforms,
-            mechanical systems and advanced electromechanical prototypes.
+            Diagnostics, repair and engineering support for compact robotic platforms,
+            servo mechanisms, mechanical assemblies and advanced electromechanical prototypes.
           </p>
 
           <div class="hero-buttons">
-            <a class="btn red" href="#contact">Send request →</a>
+            <a class="btn red" href="#contact">Get diagnostic quote →</a>
             <a class="btn light" href="#services">Explore services</a>
           </div>
         </div>
@@ -618,8 +744,8 @@
     <section class="section" id="services">
       <h2 class="section-title">Precision robotics support</h2>
       <p class="section-lead">
-        Diagnostics, maintenance, repair and development for robotic systems,
-        servo mechanisms, compact platforms and custom engineering projects.
+        From fault detection to mechanical redesign, Servochron helps teams keep robotic systems serviceable,
+        repairable and ready for real work.
       </p>
 
       <div class="cards">
@@ -636,6 +762,105 @@
         <div class="card">
           <strong>Development</strong>
           <p>Concept design, prototyping, CAD-based engineering and custom robotics development.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="repair">
+      <h2 class="section-title">What we work with</h2>
+      <p class="section-lead">
+        Practical support for mechanical, electrical and servo-driven robotic systems.
+      </p>
+
+      <div class="repair-grid">
+        <div class="repair-item">
+          <strong>Servo systems</strong>
+          <p>Actuators, linkages, joints, mounts, calibration issues and mechanical transmission problems.</p>
+        </div>
+
+        <div class="repair-item">
+          <strong>Compact robots</strong>
+          <p>Inspection robots, small platforms, educational robots, R&D prototypes and mobile systems.</p>
+        </div>
+
+        <div class="repair-item">
+          <strong>Robotic arms</strong>
+          <p>Mechanical inspection, motion problems, end-effector support and practical repair planning.</p>
+        </div>
+
+        <div class="repair-item">
+          <strong>Prototype platforms</strong>
+          <p>Design improvement, replacement modules, CAD refinement and preparation for reliable operation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band">
+      <div class="section" id="process">
+        <h2 class="section-title">A clear repair process</h2>
+        <p class="section-lead">
+          We start with diagnostics first, then define the practical path to repair, improvement or redesign.
+        </p>
+
+        <div class="process-grid">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <strong>Send details</strong>
+            <p>Describe the system, symptoms, failure mode and attach photos or videos if available.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <strong>Initial review</strong>
+            <p>We check the issue and identify whether remote advice, inspection or repair is needed.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <strong>Diagnostics</strong>
+            <p>Mechanical, servo and system-level inspection to locate the actual cause of the problem.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <strong>Repair plan</strong>
+            <p>We define what should be repaired, replaced, tuned or redesigned.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <strong>Final test</strong>
+            <p>The system is checked for stable movement, serviceability and repeatable operation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="videos">
+      <h2 class="section-title">Robotics in motion</h2>
+      <p class="section-lead">
+        Add demonstration videos here without slowing down the page. These videos use metadata preload only.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <video controls preload="metadata" poster="video-preview-1.jpg">
+            <source src="https://servochron-video-assets.s3.eu-central-1.amazonaws.com/video_head.mp4" type="video/mp4" />
+          </video>
+          <div class="video-card-text">
+            <strong>Platform movement demo</strong>
+            <p>Short demonstration of compact robotic platform movement and mechanical behavior.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <video controls preload="metadata" poster="video-preview-2.jpg">
+            <source src="https://servochron-video-assets.s3.eu-central-1.amazonaws.com/video_head.mp4" type="video/mp4" />
+          </video>
+          <div class="video-card-text">
+            <strong>Engineering inspection</strong>
+            <p>Use this slot for diagnostics, servo testing, prototype validation or repair workflow video.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -668,6 +893,35 @@
       </div>
     </section>
 
+    <section class="section" id="faq">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-lead">
+        Common questions before sending a repair or engineering request.
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <strong>Can you review the issue remotely?</strong>
+          <p>Yes. Photos, short videos and a basic description are enough for the first review.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>Do you work only with finished robots?</strong>
+          <p>No. We also support prototypes, partial mechanisms and early-stage robotic platforms.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>Can you help with redesign?</strong>
+          <p>Yes. We can improve mechanical layout, serviceability, mounting, joints and replaceable modules.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>What should I send first?</strong>
+          <p>Send the robot type, problem description, photos or video, and what result you want to achieve.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="contact">
       <h2 class="section-title">Tell us about your robot</h2>
       <p class="section-lead">
@@ -675,23 +929,26 @@
       </p>
 
       <form class="contact-form" action="https://formspree.io/f/mwvyrzll" method="POST">
-        <input type="text"
-         name="name"
-         placeholder="Your name"
-         required />
-        <input type="email"
-         name="email"
-         placeholder="Your email"
-         required />
-        <input type="text"
-         name="robot_type"
-         placeholder="Robot / system type" />
-        <textarea name="message"
-           placeholder="Tell us about your robot or system"
-           required></textarea>
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <input type="text" name="robot_type" placeholder="Robot / system type" />
+
+        <select name="urgency">
+          <option value="">Urgency</option>
+          <option value="low">Low</option>
+          <option value="urgent">Urgent</option>
+          <option value="critical">Critical</option>
+        </select>
+
+        <textarea name="message" placeholder="Tell us about your robot or system" required></textarea>
+
         <button class="btn red" type="submit">
           Send request
         </button>
+
+        <p class="form-note">
+          We respond by email. You can include system type, symptoms, photos/video links and preferred timeline.
+        </p>
       </form>
     </section>
   </main>
@@ -718,3 +975,4 @@
   </script>
 </body>
 </html>
+```
