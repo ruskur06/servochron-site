@@ -674,11 +674,24 @@
         Send a short description of your system, problem or prototype.
       </p>
 
-      <form class="contact-form" action="mailto:servochron@gmail.com" method="post" enctype="text/plain">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email" required />
-        <textarea name="message" placeholder="Tell us about your robot or system" required></textarea>
-        <button class="btn red" type="submit">Send request</button>
+      <form class="contact-form" action="https://formspree.io/f/mwvyrzll" method="POST">
+        <input type="text"
+         name="name"
+         placeholder="Your name"
+         required />
+        <input type="email"
+         name="email"
+         placeholder="Your email"
+         required />
+        <input type="text"
+         name="robot_type"
+         placeholder="Robot / system type" />
+        <textarea name="message"
+           placeholder="Tell us about your robot or system"
+           required></textarea>
+        <button class="btn red" type="submit">
+          Send request
+        </button>
       </form>
     </section>
   </main>
