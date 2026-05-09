@@ -226,10 +226,13 @@
 
     h1 {
       margin: 0;
-      max-width: 1120px;
-      font-size: clamp(76px, 6.8vw, 132px);
-      line-height: 0.94;
-      letter-spacing: -5px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 1200px;
+      font-size: clamp(82px, 7vw, 142px);
+      line-height: 0.86;
+      letter-spacing: -6px;
       font-weight: 900;
       color: var(--hero-title);
       text-shadow: 0 6px 24px rgba(0,0,0,0.72);
@@ -284,23 +287,23 @@
     .section {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 92px 28px;
+      padding: 140px 28px;
     }
 
     .section-title {
       margin: 0;
-      font-size: clamp(36px, 5vw, 74px);
-      line-height: 0.95;
-      letter-spacing: -2px;
+      font-size: clamp(42px, 5vw, 82px);
+      line-height: 0.9;
+      letter-spacing: -3px;
       font-weight: 900;
     }
 
     .section-lead {
-      margin: 22px 0 0;
-      max-width: 780px;
+      margin-top: 30px;
+      max-width: 920px;
       color: var(--muted);
-      font-size: 19px;
-      line-height: 1.7;
+      font-size: 22px;
+      line-height: 1.8;
     }
 
     .cards,
@@ -370,15 +373,15 @@
     }
 
     .services-photo-grid {
-      margin-top: 48px;
+      margin-top: 82px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 56px;
     }
 
     .service-photo-card {
       position: relative;
-      min-height: 340px;
+      min-height: 440px;
       overflow: hidden;
       border-radius: 28px;
       background-size: cover;
@@ -387,7 +390,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       cursor: pointer;
       box-shadow: 0 18px 44px rgba(0,0,0,0.22);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transition: transform 0.45s ease, box-shadow 0.45s ease;
       isolation: isolate;
     }
 
@@ -420,8 +423,8 @@
     }
 
     .service-photo-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.35);
+      transform: translateY(-14px) scale(1.015);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.42);
     }
 
     .service-photo-card:hover::before {
@@ -465,6 +468,7 @@
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.35s ease, transform 0.35s ease;
+      backdrop-filter: blur(2px);
     }
 
     .service-photo-card:hover .service-photo-overlay {
@@ -479,7 +483,7 @@
     .service-photo-content h3 {
       margin: 0 0 12px;
       color: #fff;
-      font-size: 32px;
+      font-size: 40px;
       font-weight: 900;
       letter-spacing: -1px;
       text-shadow: 0 6px 20px rgba(0,0,0,0.7);
@@ -488,8 +492,8 @@
     .service-photo-content p {
       margin: 0;
       color: rgba(230,235,242,0.94);
-      font-size: 16px;
-      line-height: 1.7;
+      font-size: 18px;
+      line-height: 1.8;
       font-weight: 500;
     }
 
@@ -678,10 +682,11 @@
 
       .services-photo-grid {
         grid-template-columns: 1fr;
+        gap: 34px;
       }
 
       .service-photo-card {
-        min-height: 320px;
+        min-height: 360px;
       }
     }
 
@@ -706,7 +711,7 @@
       }
 
       h1 {
-        font-size: clamp(58px, 7.8vw, 96px);
+        font-size: clamp(58px, 7vw, 96px);
         letter-spacing: -2px;
       }
 
@@ -783,8 +788,9 @@
 
       h1 {
         font-size: 48px;
-        line-height: 0.95;
+        line-height: 0.92;
         letter-spacing: -2px;
+        gap: 4px;
       }
 
       .subtitle {
@@ -807,12 +813,12 @@
       }
 
       .section {
-        padding-top: 72px;
-        padding-bottom: 72px;
+        padding-top: 84px;
+        padding-bottom: 84px;
       }
 
       .service-photo-card {
-        min-height: 280px;
+        min-height: 320px;
         border-radius: 22px;
       }
 
@@ -879,7 +885,11 @@
         <div class="hero-text">
           <div class="eyebrow">Independent robotics engineering</div>
 
-          <h1>ROBOT<br />SERVICE &<br />MAINTENANCE</h1>
+          <h1>
+            <span>ROBOT</span>
+            <span>SERVICE &</span>
+            <span>MAINTENANCE</span>
+          </h1>
 
           <p class="subtitle">
             Diagnostics, repair and engineering support for compact robotic platforms,
@@ -1151,4 +1161,5 @@
     }
   </script>
 </body>
+</html>
 </html>
